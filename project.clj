@@ -12,9 +12,9 @@
   :plugins [[lein-ring "0.8.13"]
             [environ/environ.lein "0.2.1"]]
   :ring {:handler backend.handler/app}
-  :profiles
   :hooks [environ.leiningen.hooks]
   :uberjar-name "pebblebus.jar"
+  :profiles 
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring-mock "0.1.5"]]}
    :production {:env {:production true}}})
