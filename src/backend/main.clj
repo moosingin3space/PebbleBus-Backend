@@ -1,6 +1,7 @@
 (ns backend.main
   (:require [ring.adapter.jetty :as jetty]
             [backend.handler :as handler]
+            [compojure.handler :refer site]
             [environ.core :refer [env]]))
 
 (defn -main [& [port]]
