@@ -1,6 +1,8 @@
-# backend
+# PebbleBus-Backend
 
-FIXME
+Source code for the backend of [PebbleBus][].
+
+[pebblebus]: https://github.com/moosingin3space/PebbleBus
 
 ## Prerequisites
 
@@ -16,4 +18,4 @@ To start a web server for the application, run:
 
 ## License
 
-Copyright © 2015 FIXME
+Copyright © 2015 PebbleBus Devs
