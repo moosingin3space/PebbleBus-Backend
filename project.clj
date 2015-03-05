@@ -8,7 +8,8 @@
                  [clj-http "1.0.0"]
                  [org.clojure/data.json "0.2.5"]
                  [org.clojure/math.numeric-tower "0.0.4"]
-                 [environ "0.5.0"]]
+                 [environ "0.5.0"]
+                 [ring/ring-jetty-adapter "1.2.2"]]
   :plugins [[lein-ring "0.8.13"]
             [environ/environ.lein "0.2.1"]]
   :ring {:handler backend.handler/app}
