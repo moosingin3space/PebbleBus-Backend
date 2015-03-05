@@ -4,7 +4,10 @@
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [compojure "1.3.1"]
-                 [ring/ring-defaults "0.1.2"]]
+                 [ring/ring-defaults "0.1.2"]
+                 [clj-http "1.0.0"]
+                 [org.clojure/data.json "0.2.5"]
+                 [org.clojure/math.numeric-tower "0.0.4"]]
   :plugins [[lein-ring "0.8.13"]]
   :ring {:handler backend.handler/app}
   :profiles
