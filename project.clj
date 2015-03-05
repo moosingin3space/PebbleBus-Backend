@@ -7,9 +7,14 @@
                  [ring/ring-defaults "0.1.2"]
                  [clj-http "1.0.0"]
                  [org.clojure/data.json "0.2.5"]
-                 [org.clojure/math.numeric-tower "0.0.4"]]
-  :plugins [[lein-ring "0.8.13"]]
+                 [org.clojure/math.numeric-tower "0.0.4"]
+                 [environ "0.5.0"]]
+  :plugins [[lein-ring "0.8.13"]
+            [environ/environ.lein "0.2.1"]]
   :ring {:handler backend.handler/app}
   :profiles
+  :hooks [environ.leiningen.hooks]
+  :uberjar-name "pebblebus.jar"
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
-                        [ring-mock "0.1.5"]]}})
+                        [ring-mock "0.1.5"]]}
+   :production {:env {:production true}}})
