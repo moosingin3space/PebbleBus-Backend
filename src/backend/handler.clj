@@ -15,8 +15,13 @@
              (util/find-closest (read-string lat) (read-string lon) stops-list)))))
   (GET "/next-bus" {{stop-id :stop} :params}
        (let [etas (mbus/eta-list stop-id)
-             first-eta (first etas)]
-         (str first-eta)))
+             routes (mbus/route-list)
+             {routeId :route t :avg} (first etas)
+             route (first (filter (fn [{id :id :as all}] (= id routeId)) routes))
+             {routeName :name} route]
+         (json/write-str 
+           {:name routeName
+            :time t})))
   (route/not-found "Not Found"))
 
 (def app

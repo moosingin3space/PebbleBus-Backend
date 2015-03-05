@@ -1,6 +1,6 @@
 (ns backend.mbus
   (:require [clojure.data.json :as json]
-           [clj-http.client :as client]))
+            [clj-http.client :as client]))
 
 (def api-endpoint "http://mbus.doublemap.com/map/v2")
 
