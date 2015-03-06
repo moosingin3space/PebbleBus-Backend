@@ -16,7 +16,8 @@
   (GET "/closest-stops" {{lat :lat lon :lon} :params}
        (let [stops-list (mbus/stop-list)]
          (json/write-str
-           (util/sort-closest (read-string lat) (read-string lon) (map mbus/mbus-to-std-json stops-list)))))
+           (take 5 
+                 (util/sort-closest (read-string lat) (read-string lon) (map mbus/mbus-to-std-json stops-list))))))
   (GET "/next-bus" {{stop-id :stop} :params}
        (let [etas (mbus/eta-list stop-id)
              routes (mbus/route-list)
