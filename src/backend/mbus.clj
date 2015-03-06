@@ -13,7 +13,7 @@
 (defn eta-list [stop-id]
   (let [eta-url (str api-endpoint "/eta?stop=" stop-id)
         {etas-raw :body} (client/get eta-url)
-        {{{etas-response :etas} (keyword stop-id)} :etas} (json/read-str etas-raw :key-fn keyword)]
+        {{{etas-response :etas} (keyword (str stop-id))} :etas} (json/read-str etas-raw :key-fn keyword)]
     etas-response))
 
 (defn route-list []
@@ -21,6 +21,12 @@
         {routes-raw :body} (client/get routes-url)
         routes-resp (json/read-str routes-raw :key-fn keyword)]
     routes-resp))
+
+(defn bus-list []
+  (let [buses-url (str api-endpoint "/buses")
+        {buses-raw :body} (client/get buses-url)
+        buses-response (json/read-str buses-raw :key-fn keyword)]
+    buses-response))
 
 (defn mbus-to-std-json [{id :id nm :name lat :lat lon :lon}]
   {:id id :name nm :lat lat :lon lon})
