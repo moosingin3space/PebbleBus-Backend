@@ -4,8 +4,8 @@ package data
 type Stop struct {
 	Id        int     `json:"id"`
 	Name      string  `json:"name"`
-	Latitude  float32 `json:"lat"`
-	Longitude float32 `json:"lon"`
+	Latitude  float64 `json:"lat"`
+	Longitude float64 `json:"lon"`
 }
 
 type Bus struct {

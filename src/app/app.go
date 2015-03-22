@@ -6,7 +6,12 @@ import (
 	httpc "httpclient"
 	"mbus"
 	"net/http"
+	"sort"
+	"strconv"
+	"util"
 )
+
+const NUM_CLOSEST_STOPS = 5
 
 func init() {
 	http.HandleFunc("/closest-stop", closestStop)
@@ -20,6 +25,18 @@ func closestStop(w http.ResponseWriter, r *http.Request) {
 }
 
 func closestStops(w http.ResponseWriter, r *http.Request) {
+	lat_string := r.URL.Query().Get("lat")
+	lon_string := r.URL.Query().Get("lon")
+	latitude, err := strconv.ParseFloat(lat_string, 64)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	longitude, err := strconv.ParseFloat(lon_string, 64)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 	c := httpc.Client(r)
 	stops, err := mbus.StopList(c)
 	if err != nil {
@@ -27,7 +44,10 @@ func closestStops(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	blob, err := json.Marshal(stops)
+	// now sort by distance
+	sort.Sort(util.ByStopDistance(stops, latitude, longitude))
+
+	blob, err := json.Marshal(stops[:NUM_CLOSEST_STOPS])
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
