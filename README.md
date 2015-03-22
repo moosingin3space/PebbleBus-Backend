@@ -1,7 +1,5 @@
 # PebbleBus-Backend
 
-*NOTE*: This app is currently being re-written in Go.
-
 Source code for the backend of [PebbleBus][].
 
 [pebblebus]: https://github.com/moosingin3space/PebbleBus
