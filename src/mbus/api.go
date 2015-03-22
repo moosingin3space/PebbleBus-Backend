@@ -1,19 +1,17 @@
 package mbus
 
 import (
-	"appengine"
-	"appengine/urlfetch"
 	"data"
 	"encoding/json"
 	"io/ioutil"
+	"net/http"
 )
 
 const API_ENDPOINT = "http://mbus.doublemap.com/map/v2"
 
-func StopList(ctx appengine.Context) (stops []data.Stop, err error) {
+func StopList(cl *http.Client) (stops []data.Stop, err error) {
 	stopsUrl := API_ENDPOINT + "/stops"
-	client := urlfetch.Client(ctx)
-	resp, err := client.Get(stopsUrl)
+	resp, err := cl.Get(stopsUrl)
 	if err != nil {
 		return
 	}
