@@ -8,15 +8,25 @@ Source code for the backend of [PebbleBus][].
 
 ## Prerequisites
 
-You will need [Leiningen][] 2.0.0 or above installed.
+You will need [Go][] 1.4 or above installed. [gvm][] is a helpful tool for managing
+your `GOPATH` variable.
 
-[leiningen]: https://github.com/technomancy/leiningen
+[go]: http://golang.org
+[gvm]: https://github.com/moovweb/gvm
+
 
 ## Running
 
 To start a web server for the application, run:
 
-    lein ring server
+    source paths.bash
+    go build app
+    ./app
+
+Alternatively, to run on App Engine, run:
+
+    source paths.bash
+    goapp serve .
 
 ## License
 
