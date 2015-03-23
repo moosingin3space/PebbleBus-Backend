@@ -1,4 +1,3 @@
-// +build appengine
 package data
 
 type Stop struct {
