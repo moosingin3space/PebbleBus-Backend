@@ -39,9 +39,15 @@ func NextBusAtStop(cl *http.Client, stopId int) (bus data.Bus, err error) {
 		return
 	}
 	routeResp, err := cl.Get(routesUrl)
+	if err != nil {
+		return
+	}
 	defer etaResp.Body.Close()
 	defer routeResp.Body.Close()
 	etaBody, err := ioutil.ReadAll(etaResp.Body)
+	if err != nil {
+		return
+	}
 	routeBody, err := ioutil.ReadAll(routeResp.Body)
 	if err != nil {
 		return
@@ -80,5 +86,6 @@ func NextBusAtStop(cl *http.Client, stopId int) (bus data.Bus, err error) {
 			}
 		}
 	}
+	err = errors.New("no bus found")
 	return
 }
