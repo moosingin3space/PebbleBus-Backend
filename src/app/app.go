@@ -2,7 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"github.com/zenazn/goji"
+	"github.com/zenazn/goji/web"
 	httpc "httpclient"
+	"httpinit"
 	"mbus"
 	"net/http"
 	"sort"
@@ -13,15 +16,16 @@ import (
 const NUM_CLOSEST_STOPS = 5
 
 func init() {
-	http.HandleFunc("/closest-stop", closestStop)
-	http.HandleFunc("/closest-stops", closestStops)
-	http.HandleFunc("/next-bus", nextBus)
+	httpinit.Init()
+	goji.Get("/closest-stop", closestStop)
+	goji.Get("/closest-stops", closestStops)
+	goji.Get("/next-bus", nextBus)
 }
 
-func closestStop(w http.ResponseWriter, r *http.Request) {
+func closestStop(ctx web.C, w http.ResponseWriter, r *http.Request) {
 	// extract latitude and longitude from URL
-	lat_string := r.URL.Query().Get("lat")
-	lon_string := r.URL.Query().Get("lon")
+	lat_string := ctx.URLParams["lat"]
+	lon_string := ctx.URLParams["lon"]
 	latitude, err := strconv.ParseFloat(lat_string, 64)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -57,10 +61,10 @@ func closestStop(w http.ResponseWriter, r *http.Request) {
 	w.Write(blob)
 }
 
-func closestStops(w http.ResponseWriter, r *http.Request) {
+func closestStops(ctx web.C, w http.ResponseWriter, r *http.Request) {
 	// extract latitude and longitude from URL
-	lat_string := r.URL.Query().Get("lat")
-	lon_string := r.URL.Query().Get("lon")
+	lat_string := ctx.URLParams["lat"]
+	lon_string := ctx.URLParams["lon"]
 	latitude, err := strconv.ParseFloat(lat_string, 64)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -93,9 +97,9 @@ func closestStops(w http.ResponseWriter, r *http.Request) {
 	w.Write(blob)
 }
 
-func nextBus(w http.ResponseWriter, r *http.Request) {
+func nextBus(ctx web.C, w http.ResponseWriter, r *http.Request) {
 	// get stop from URL
-	stopId_string := r.URL.Query().Get("stop")
+	stopId_string := ctx.URLParams["stop"]
 	stopId, err := strconv.Atoi(stopId_string)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
