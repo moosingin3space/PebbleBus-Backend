@@ -5,6 +5,7 @@ type Stop struct {
 	Name      string  `json:"name"`
 	Latitude  float64 `json:"lat"`
 	Longitude float64 `json:"lon"`
+	Buses     []Bus   `json:"buses"`
 }
 
 type Bus struct {
