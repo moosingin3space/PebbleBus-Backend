@@ -19,12 +19,14 @@ type Route struct {
 
 const API_ENDPOINT = "http://mbus.doublemap.com/map/v2"
 
+// Stores the stops and routes for a session
 type Service struct {
 	stops  []data.Stop
 	routes []Route
 	client *http.Client
 }
 
+// Initializes the session with an HTTP client
 func InitService(cl *http.Client) (svc backend.Backend, err error) {
 	var stops []data.Stop
 	var routes []Route
@@ -68,6 +70,7 @@ func InitService(cl *http.Client) (svc backend.Backend, err error) {
 	return
 }
 
+// Finds the closest stops with bus information associated
 func (svc Service) ClosestStops(lat, lon float64, num int) (stops []data.Stop, err error) {
 	myStops := svc.stops[:]
 	sort.Sort(util.ByStopDistance(myStops, lat, lon))
