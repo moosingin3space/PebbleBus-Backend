@@ -26,6 +26,10 @@ Alternatively, to run on App Engine, run:
     source paths.bash
     goapp serve .
 
+## Future Plans
+
+Integrate with Michigan Hackers' Big Data Buses project.
+
 ## License
 
 Copyright © 2015 PebbleBus Devs
